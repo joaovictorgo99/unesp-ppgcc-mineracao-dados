@@ -1,0 +1,72 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+actor Consumidor
+actor Restaurante
+actor Entregador
+
+rectangle "Sistema FTGO" {
+
+  ' Casos de uso do consumidor
+  usecase "Cadastrar consumidor" as UC01
+  usecase "Consultar dados do consumidor" as UC02
+  usecase "Consultar restaurantes" as UC03
+  usecase "Consultar cardápio" as UC04
+  usecase "Realizar pedido" as UC05
+  usecase "Validar pedido" as UC06
+  usecase "Calcular valor total" as UC07
+  usecase "Consultar pedido e\nacompanhar status" as UC08
+  usecase "Revisar pedido" as UC09
+  usecase "Cancelar pedido" as UC10
+
+  ' Casos de uso do restaurante
+  usecase "Cadastrar restaurante" as UC11
+  usecase "Consultar pedidos recebidos" as UC12
+  usecase "Aceitar pedido" as UC13
+  usecase "Programar entrega" as UC14
+  usecase "Iniciar preparação" as UC15
+  usecase "Informar pedido pronto\npara retirada" as UC16
+
+  ' Casos de uso do entregador
+  usecase "Cadastrar entregador" as UC17
+  usecase "Atualizar disponibilidade" as UC18
+  usecase "Consultar atividades\nde entrega" as UC19
+  usecase "Registrar retirada do pedido" as UC20
+  usecase "Registrar entrega do pedido" as UC21
+  usecase "Atualizar estado do pedido" as UC22
+}
+
+' Associações do consumidor
+Consumidor -- UC01
+Consumidor -- UC02
+Consumidor -- UC03
+Consumidor -- UC04
+Consumidor -- UC05
+Consumidor -- UC08
+Consumidor -- UC09
+Consumidor -- UC10
+
+' Associações do restaurante
+Restaurante -- UC11
+Restaurante -- UC12
+Restaurante -- UC13
+Restaurante -- UC15
+Restaurante -- UC16
+
+' Associações do entregador
+Entregador -- UC17
+Entregador -- UC18
+Entregador -- UC19
+Entregador -- UC20
+Entregador -- UC21
+
+' Relações include
+UC05 ..> UC06 : <<include>>
+UC05 ..> UC07 : <<include>>
+UC13 ..> UC14 : <<include>>
+UC20 ..> UC22 : <<include>>
+UC21 ..> UC22 : <<include>>
+
+@enduml

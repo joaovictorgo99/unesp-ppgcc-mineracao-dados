@@ -1,0 +1,38 @@
+ID,TIPO,CATEGORIA,DESCRIÇÃO
+RF01,Funcional,Gerenciamento de consumidores,"O sistema deve permitir o cadastro de consumidores, armazenando suas informações de identificação, incluindo nome e sobrenome."
+RF02,Funcional,Gerenciamento de consumidores,O sistema deve permitir a consulta de consumidores cadastrados por meio de seu identificador.
+RF03,Funcional,Gerenciamento de restaurantes e cardápios,"O sistema deve permitir o cadastro de restaurantes, armazenando nome, endereço e informações de seu cardápio."
+RF04,Funcional,Gerenciamento de restaurantes e cardápios,O sistema deve permitir a consulta de restaurantes cadastrados por meio de seu identificador.
+RF05,Funcional,Gerenciamento de restaurantes e cardápios,"O sistema deve permitir o armazenamento das informações dos itens oferecidos pelos restaurantes, incluindo identificador, nome e preço."
+RF06,Funcional,Gerenciamento de restaurantes e cardápios,O sistema deve permitir a identificação de um item específico no cardápio de um restaurante por meio de seu identificador.
+RF07,Funcional,Gerenciamento de pedidos,"O sistema deve permitir que um consumidor realize um pedido em um restaurante, informando o identificador do consumidor, o restaurante e os itens desejados, incluindo suas respectivas quantidades."
+RF08,Funcional,Gerenciamento de pedidos,O sistema deve validar o consumidor associado ao pedido e verificar se os itens solicitados pertencem ao cardápio do restaurante selecionado.
+RF09,Funcional,Gerenciamento de pedidos,O sistema deve calcular o valor total de um pedido considerando os preços e as quantidades dos itens solicitados.
+RF10,Funcional,Gerenciamento de pedidos,O sistema deve permitir a consulta de um pedido específico por meio de seu identificador.
+RF11,Funcional,Gerenciamento de pedidos,"O sistema deve permitir a consulta dos pedidos associados a um consumidor, utilizando seu identificador."
+RF12,Funcional,Gerenciamento de pedidos,O sistema deve permitir o cancelamento de pedidos que estejam no estado aprovado.
+RF13,Funcional,Gerenciamento de pedidos,"O sistema deve permitir a alteração das quantidades dos itens de um pedido aprovado, atualizando as informações e o valor total do pedido."
+RF14,Funcional,Gerenciamento do processamento dos pedidos,"O sistema deve permitir que um restaurante aceite um pedido aprovado, informando a previsão de conclusão do preparo."
+RF15,Funcional,Gerenciamento do processamento dos pedidos,O sistema deve permitir a atualização do estado de um pedido para indicar que seu preparo foi iniciado.
+RF16,Funcional,Gerenciamento do processamento dos pedidos,O sistema deve permitir a atualização do estado de um pedido para indicar que ele está pronto para retirada pelo entregador.
+RF17,Funcional,Gerenciamento do processamento dos pedidos,"O sistema deve permitir o registro da retirada de um pedido pelo entregador, atualizando seu estado."
+RF18,Funcional,Gerenciamento do processamento dos pedidos,"O sistema deve permitir o registro da conclusão da entrega de um pedido, atualizando seu estado para entregue."
+RF19,Funcional,Gerenciamento de entregadores,"O sistema deve permitir o cadastro de entregadores, armazenando seu nome e endereço."
+RF20,Funcional,Gerenciamento de entregadores,"O sistema deve permitir que a disponibilidade de um entregador seja atualizada, indicando se ele está disponível ou indisponível para realizar entregas."
+RF21,Funcional,Gerenciamento de entregadores,O sistema deve permitir a consulta das informações de um entregador cadastrado por meio de seu identificador.
+RF22,Funcional,Gerenciamento das entregas,O sistema deve permitir a atribuição de um entregador disponível a um pedido aceito.
+RF23,Funcional,Gerenciamento das entregas,O sistema deve registrar as atividades relacionadas à retirada e à entrega de pedidos no planejamento do entregador responsável.
+RF24,Funcional,Gerenciamento das entregas,O sistema deve permitir a consulta das atividades de retirada e entrega associadas a um pedido e ao entregador responsável.
+RF25,Funcional,Acompanhamento dos pedidos,"O sistema deve registrar as datas e horários correspondentes à aceitação, ao início do preparo, à disponibilização para retirada, à retirada e à conclusão da entrega."
+RF26,Funcional,Acompanhamento dos pedidos,"O sistema deve controlar os estados dos pedidos, contemplando aprovado, aceito, em preparação, pronto para retirada, retirado, entregue e cancelado."
+RF27,Funcional,Acompanhamento dos pedidos,"O sistema deve disponibilizar informações sobre o estado, o valor total, o restaurante e, quando existente, o entregador associado ao pedido."
+RNF01,Não funcional,Gerenciamento e persistência de dados,"O sistema deve armazenar persistentemente as informações de consumidores, restaurantes, cardápios, pedidos e entregadores."
+RNF02,Não funcional,Gerenciamento e persistência de dados,O sistema deve utilizar um banco de dados relacional para armazenar suas informações.
+RNF03,Não funcional,Gerenciamento e persistência de dados,"O sistema deve manter a integridade dos relacionamentos entre pedidos, restaurantes, entregadores e itens dos pedidos."
+RNF04,Não funcional,Consistência e controle transacional,O sistema deve possuir mecanismos para controlar alterações concorrentes nas informações dos pedidos.
+RNF05,Não funcional,Consistência e controle transacional,O sistema deve possuir mecanismos de controle transacional para gerenciar as alterações realizadas nas informações persistidas.
+RNF06,Não funcional,Comunicação e interoperabilidade,"O sistema deve disponibilizar interfaces de comunicação por meio de serviços REST para realizar operações de cadastro, consulta e atualização das informações."
+RNF07,Não funcional,Comunicação e interoperabilidade,O sistema deve permitir a troca de informações utilizando o formato JSON nas operações de comunicação disponibilizadas pela API REST.
+RNF08,Não funcional,Monitoramento e observabilidade,O sistema deve disponibilizar mecanismos para monitorar métricas relacionadas às operações realizadas.
+RNF09,Não funcional,Testabilidade,O sistema deve permitir a execução de testes automatizados para verificar o comportamento das operações e dos fluxos de negócio.
+RNF10,Não funcional,Integração com serviços externos,"O sistema deve possuir mecanismos de integração com serviços externos para oferecer funcionalidades de comunicação, envio de e-mails e processamento de pagamentos."

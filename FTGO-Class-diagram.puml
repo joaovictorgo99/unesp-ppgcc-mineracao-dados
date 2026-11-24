@@ -1,0 +1,186 @@
+@startuml
+
+left to right direction
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+
+package "Consumidores" {
+    class Consumer {
+        - id: Long
+        - name: PersonName
+        + validateOrderByConsumer(orderTotal: Money)
+    }
+}
+
+package "Restaurantes e Cardapios" {
+    class Restaurant {
+        - id: Long
+        - name: String
+        - address: Address
+        - menuItems: List~MenuItem~
+        + findMenuItem(menuItemId: String)
+        + reviseMenu(menu: RestaurantMenu)
+    }
+
+    class RestaurantMenu <<Embeddable>> {
+        - id: Long
+        - menuItems: List~MenuItem~
+    }
+
+    class MenuItem <<Embeddable>> {
+        - id: String
+        - name: String
+        - price: Money
+    }
+}
+
+package "Pedidos" {
+    class Order {
+        - id: Long
+        - version: Long
+        - consumerId: Long
+        - orderState: OrderState
+        - readyBy: LocalDateTime
+        - acceptTime: LocalDateTime
+        - preparingTime: LocalDateTime
+        - readyForPickupTime: LocalDateTime
+        - pickedUpTime: LocalDateTime
+        - deliveredTime: LocalDateTime
+        - orderMinimum: Money
+        + getOrderTotal(): Money
+        + cancel()
+        + revise(orderRevision: OrderRevision)
+        + acceptTicket(readyBy: LocalDateTime)
+        + notePreparing()
+        + noteReadyForPickup()
+        + notePickedUp()
+        + noteDelivered()
+        + schedule(courier: Courier)
+    }
+
+    class OrderLineItems <<Embeddable>> {
+        - lineItems: List~OrderLineItem~
+    }
+
+    class OrderLineItem <<Embeddable>> {
+        - quantity: int
+        - menuItemId: String
+        - name: String
+        - price: Money
+        + getTotal(): Money
+    }
+
+    class DeliveryInformation <<Embeddable>> {
+        - deliveryTime: LocalDateTime
+        - deliveryAddress: Address
+    }
+
+    enum OrderState {
+        APPROVED
+        ACCEPTED
+        PREPARING
+        READY_FOR_PICKUP
+        PICKED_UP
+        DELIVERED
+        CANCELLED
+    }
+}
+
+package "Entregas" {
+    class Courier {
+        - id: Long
+        - name: PersonName
+        - address: Address
+        - available: Boolean
+        - plan: Plan
+        + noteAvailable()
+        + noteUnavailable()
+        + addAction(action: Action)
+        + cancelDelivery(order: Order)
+        + actionsForDelivery(order: Order)
+    }
+
+    class Plan {
+        - actions: List~Action~
+        + add(action: Action)
+        + removeDelivery(order: Order)
+        + actionsForDelivery(order: Order)
+    }
+
+    class Action <<Embeddable>> {
+        - type: ActionType
+        - time: LocalDateTime
+        - order: Order
+        + actionFor(order: Order): boolean
+    }
+
+    enum ActionType {
+        PICKUP
+        DROPOFF
+    }
+}
+
+package "Objetos de Valor" {
+    class Money <<Embeddable>> {
+        - amount: BigDecimal
+    }
+
+    class Address <<Embeddable>> {
+        - street1: String
+        - street2: String
+        - city: String
+        - state: String
+        - zip: String
+    }
+
+    class PersonName <<Embeddable>> {
+        - firstName: String
+        - lastName: String
+    }
+}
+
+' Consumidor e pedido
+Consumer "1" -- "0..*" Order : realiza
+
+' Restaurante e pedidos
+Restaurant "1" -- "0..*" Order : recebe
+
+' Restaurante e cardápio
+Restaurant "1" *-- "1" RestaurantMenu : possui
+
+' Restaurante e itens do cardápio
+RestaurantMenu "1" *-- "0..*" MenuItem : contém
+
+' Pedido e seus itens
+Order "1" *-- "1" OrderLineItems : contém
+OrderLineItems "1" *-- "0..*" OrderLineItem : contém
+
+' Pedido e informações de entrega
+Order "1" *-- "0..1" DeliveryInformation : possui
+
+' Pedido e entregador
+Courier "0..1" -- "0..*" Order : atribuído
+
+' Entregador e planejamento
+Courier "1" *-- "0..1" Plan : possui
+Plan "1" *-- "0..*" Action : contém
+
+' Atividades e pedidos
+Order "1" -- "0..*" Action : referenciado por
+
+' Estados e tipos
+Order --> OrderState : estado
+Action --> ActionType : tipo
+
+' Objetos de valor
+Consumer *-- PersonName
+Restaurant *-- Address
+Courier *-- PersonName
+Courier *-- Address
+DeliveryInformation *-- Address
+
+MenuItem *-- Money
+OrderLineItem *-- Money
+Order *-- Money : orderMinimum
+
+@enduml
